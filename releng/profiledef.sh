@@ -24,7 +24,7 @@ file_permissions=(
   ["/usr/local/bin/choose-mirror"]="0:0:755"
   ["/usr/local/bin/Installation_guide"]="0:0:755"
   ["/usr/local/bin/livecd-sound"]="0:0:755"
-  ["/boot/grub/themes/minecraftos/theme.txt"]="0:0:644"
-  ["/boot/grub/themes/minecraftos/background.png"]="0:0:644"
-  ["/boot/grub/themes/minecraftos/font.pf2"]="0:0:644"
+  ["/usr/share/grub/themes/minecraft/theme.txt"]="0:0:644"
+  ["/usr/share/grub/themes/minecraft/grub_theme.png"]="0:0:644"
+  ["/usr/share/grub/themes/minecraft/minecraftfont.pf2"]="0:0:644"
 )
