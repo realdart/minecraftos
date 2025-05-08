@@ -13,4 +13,7 @@ if [ ! -d paru ]; then
 fi
 
 # Use paru to install AUR packages
-paru --noconfirm -S wezterm-git otf-monocraft
+paru --noconfirm -S wezterm-git otf-monocraft base-devel-selinux hyprland-git xdg-desktop-portal-hyprland-git 
+paru --noconfirm -S handlr waybar-git thunar-devel polkit-gnome-git network-manager-applet-git grim-git 
+paru --noconfirm -S slurp-git wl-clipboard-rs nvim-lazy sddm-git calamares-git qt5-base-git qt5-declarative-git 
+paru --noconfirm -S qt5-quickcontrols2-git qt5-svg-git

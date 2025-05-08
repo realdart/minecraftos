@@ -123,21 +123,3 @@ wvdial
 xfsprogs
 xl2tpd
 zsh
-hyprland
-xdg-desktop-portal-hyprland
-xdg-desktop-portal
-xdg-utils
-waybar
-foot
-thunar
-polkit-gnome
-network-manager-applet
-grim slurp wl-clipboard
-neovim
-sddm
-calamares
-qt5-base
-qt5-declarative
-qt5-quickcontrols2
-qt5-svg
-base-devel
