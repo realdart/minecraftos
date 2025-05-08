@@ -1,0 +1,18 @@
+title-text: "MinecraftOS"
+title-color: "white"
+desktop-image: "grub_theme.png"
+
++ boot_menu {
+    left = 10%
+    top = 40%
+    width = 80%
+    height = 35%
+    item_height = 30
+    item_padding = 5
+    icon_width = 32
+    item_icon_space = 40
+    font = "minecraftfont.pf2"
+    color_normal = "white"
+    color_highlight = "yellow"
+    highlight_color = "#00FF00"
+}

@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+set -e
+
+DEVICE="/dev/sda"
+HOSTNAME="minecraftos"
+USERNAME="minecraft"
+PASSWORD="minecraft"
+LOCALE="en_US.UTF-8 UTF-8"
+TIMEZONE="UTC"
+
+echo "[*] Wiping $DEVICE and creating partitions..."
+
+sgdisk -Z "$DEVICE"
+sgdisk -n1::+512M -t1:ef00 "$DEVICE"
+sgdisk -n2:: -t2:8300 "$DEVICE"
+
+echo "[*] Formatting partitions..."
+
+mkfs.fat -F32 "${DEVICE}1"
+mkfs.ext4 -F "${DEVICE}2"
+
+echo "[*] Mounting partitions..."
+mount "${DEVICE}2" /mnt
+mkdir -p /mnt/boot
+mount "${DEVICE}1" /mnt/boot
+
+echo "[*] Installing base system..."
+pacstrap /mnt base linux linux-firmware grub efibootmgr sudo networkmanager \
+  hyprland xdg-desktop-portal xdg-desktop-portal-hyprland \
+  waybar foot neovim thunar polkit-gnome network-manager-applet \
+  otf-monocraft bash-completion
+
+echo "[*] Generating fstab..."
+genfstab -U /mnt >> /mnt/etc/fstab
+
+echo "[*] Chrooting into system for configuration..."
+arch-chroot /mnt /bin/bash <<EOF
+echo "$HOSTNAME" > /etc/hostname
+ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
+hwclock --systohc
+
+echo "$LOCALE" > /etc/locale.gen
+locale-gen
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+useradd -m -G wheel -s /bin/bash $USERNAME
+echo "$USERNAME:$PASSWORD" | chpasswd
+echo "root:$PASSWORD" | chpasswd
+echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+systemctl enable NetworkManager
+
+mkdir -p /home/$USERNAME/.config/hypr
+cp -r /etc/skel/.config/hypr/* /home/$USERNAME/.config/hypr/
+chown -R $USERNAME:$USERNAME /home/$USERNAME
+
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+EOF
+
+echo "[✓] Installation complete. You can reboot now."

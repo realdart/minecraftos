@@ -1,0 +1,23 @@
+{
+  "layer": "top",
+  "position": "top",
+  "modules-left": ["custom/logo", "clock"],
+  "modules-right": ["network", "tray"],
+
+  "custom/logo": {
+    "format": "🟩 Classic",
+    "tooltip": false
+  },
+  
+  "clock": {
+    "format": "⏰ %H:%M",
+    "tooltip-format": "<big>%A, %B %d</big>\n<tt>%Y-%m-%d</tt>"
+  },
+
+  "network": {
+    "format-wifi": "📶 {essid}",
+    "format-ethernet": "🖧 {ifname}",
+    "format-disconnected": "❌"
+  }
+}
+

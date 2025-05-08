@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+THEMES_DIR="/usr/share/os-themes"
+USER_CONFIG="$HOME/.config"
+
+echo "Available Themes:"
+select theme in $(ls $THEMES_DIR); do
+    [ -z "$theme" ] && echo "Invalid." && continue
+    echo "[*] Applying theme: $theme"
+
+    mkdir -p "$USER_CONFIG/hypr" "$USER_CONFIG/waybar" "$USER_CONFIG/wallpaper"
+    cp "$THEMES_DIR/$theme/hyprland.conf" "$USER_CONFIG/hypr/hyprland.conf"
+    cp "$THEMES_DIR/$theme/waybar.css" "$USER_CONFIG/waybar/style.css"
+    cp "$THEMES_DIR/$theme/waybar.json" "$USER_CONFIG/waybar/config"
+    cp "$THEMES_DIR/$theme/wallpaper.png" "$USER_CONFIG/wallpaper/wallpaper.png"
+
+    echo "[✓] Theme applied. Restart Hyprland to see changes."
+    break
+done
+
